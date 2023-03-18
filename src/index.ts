@@ -3,11 +3,12 @@ import { ClientRequest } from "http";
 import {
     AccessToken,
     CustomerJwt,
+    CustomerSsoJwt,
     OAuthCode,
     Options,
     StoreAdminJwt,
 } from "./model/oauth";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 
 const DEFAULT_OPTIONS: Options = {
@@ -136,11 +137,11 @@ export class BigCommerceOAuthClient {
         redirectUrl?: string,
         channelId = 1
     ) {
-        const payload: JwtPayload = {
+        const payload: CustomerSsoJwt = {
             iss: this.options.clientId,
             iat: Math.floor(Date.now() / 1000),
             operation: "customer_login",
-            store_hash: this.options.storeHash,
+            store_hash: this.options.storeHash || "",
             customer_id: customerId,
             channel_id: channelId,
             jti: uuidv4(),

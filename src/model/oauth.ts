@@ -64,7 +64,7 @@ export interface Options {
     retryDelay?: number;
 }
 
-export interface JwtPayload {
+export interface CustomerSsoJwt {
     iss: string;
     iat: number;
     operation: string;
