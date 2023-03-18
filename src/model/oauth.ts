@@ -27,8 +27,8 @@ export interface StoreAdminJwt {
         id: number;
         email: string;
     };
-    url: string;
-    channel_id: number | null;
+    url: string; // deep link url.
+    channel_id?: number | null;
 }
 
 export interface CustomerJwt {

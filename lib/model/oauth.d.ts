@@ -27,7 +27,7 @@ export interface StoreAdminJwt {
         email: string;
     };
     url: string;
-    channel_id: number | null;
+    channel_id?: number | null;
 }
 export interface CustomerJwt {
     customer: {

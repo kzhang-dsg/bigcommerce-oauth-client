@@ -8,4 +8,5 @@ export declare class BigCommerceOAuthClient {
     verifyStoreAdminJwt(token: string): StoreAdminJwt;
     verifyCustomerJwt(token: string): CustomerJwt;
     createCustomerLoginJwt(customerId: number, redirectUrl?: string, channelId?: number): string;
+    createStoreAdminJwt(accessToken: AccessToken, locale?: string, deepLinkUrl?: string, channelId?: number): string;
 }

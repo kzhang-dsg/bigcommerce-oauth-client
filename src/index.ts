@@ -136,7 +136,7 @@ export class BigCommerceOAuthClient {
         customerId: number,
         redirectUrl?: string,
         channelId = 1
-    ) {
+    ): string {
         const payload: CustomerSsoJwt = {
             iss: this.options.clientId,
             iat: Math.floor(Date.now() / 1000),
@@ -149,6 +149,43 @@ export class BigCommerceOAuthClient {
 
         if (redirectUrl) {
             payload.redirect_url = redirectUrl;
+        }
+
+        return jwt.sign(payload, this.options.clientSecret, {
+            expiresIn: "24h",
+            algorithm: "HS256",
+        });
+    }
+
+    createStoreAdminJwt(
+        accessToken: AccessToken,
+        locale: string = "en-US",
+        deepLinkUrl: string = "/",
+        channelId?: number
+    ): string {
+        const now = Math.floor(Date.now() / 1000);
+        const payload: StoreAdminJwt = {
+            aud: this.options.clientId,
+            iss: "bc",
+            iat: now,
+            nbf: now,
+            exp: now + 60 * 60 * 24,
+            jti: uuidv4(),
+            sub: accessToken.context.replace("stores/", ""),
+            user: {
+                id: accessToken.user.id,
+                email: accessToken.user.email,
+                locale: locale,
+            },
+            owner: {
+                id: accessToken.user.id,
+                email: accessToken.user.email,
+            },
+            url: deepLinkUrl,
+        };
+
+        if (channelId) {
+            payload.channel_id = channelId;
         }
 
         return jwt.sign(payload, this.options.clientSecret, {
