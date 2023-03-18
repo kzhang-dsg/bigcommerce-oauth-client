@@ -89,7 +89,7 @@ If you need to get the underlying axios error object, you just need to
 
 ```typescript
 try {
-    // call bigcommerceApiClient
+    // call bigcommerceOAuthClient
 } catch (err) {
     let axiosError = err.cause; // the axios error object is in the error cause
     let request = axiosError.request;
