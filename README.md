@@ -37,9 +37,9 @@ const bigCommerceOAuthClient = new BigCommerceOAuthClient({
 
 // Example code to get products
 const accessToken: AccessToken = await bigCommerceOAuthClient.authorize({
-    code: "xxxxxx"; // replace it with the parameter in auth call back
-    scope: "xxxxxx"; // replace it with the parameter in auth call back
-    context: "xxxxxx"; // replace it with the parameter in auth call back
+    code: "xxxxxx", // replace it with the parameter in auth call back
+    scope: "xxxxxx", // replace it with the parameter in auth call back
+    context: "xxxxxx" // replace it with the parameter in auth call back
 }, "https://auth.callback.uri"); // replace it with the auth callback registered in the app profile.
 console.log(JSON.stringify(accessToken));
 
