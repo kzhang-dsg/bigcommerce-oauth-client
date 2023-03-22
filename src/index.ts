@@ -2,11 +2,11 @@ import Axios, { AxiosInstance, AxiosResponse } from "axios";
 import { ClientRequest } from "http";
 import {
     AccessToken,
-    CustomerJwt,
+    CustomerJwtPayload,
     CustomerSsoJwt,
     OAuthCode,
     Options,
-    StoreAdminJwt,
+    StoreAdminJwtPayload,
 } from "./model/oauth";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
@@ -118,18 +118,18 @@ export class BigCommerceOAuthClient {
         }
     }
 
-    verifyStoreAdminJwt(token: string): StoreAdminJwt {
+    verifyStoreAdminJwt(token: string): StoreAdminJwtPayload {
         return jwt.verify(token, this.options.clientSecret, {
             algorithms: ["HS256"],
             audience: this.options.clientId,
-        }) as StoreAdminJwt;
+        }) as StoreAdminJwtPayload;
     }
 
-    verifyCustomerJwt(token: string): CustomerJwt {
+    verifyCustomerJwt(token: string): CustomerJwtPayload {
         return jwt.verify(token, this.options.clientSecret, {
             algorithms: ["HS256"],
             audience: this.options.clientId,
-        }) as CustomerJwt;
+        }) as CustomerJwtPayload;
     }
 
     createCustomerLoginJwt(
@@ -164,12 +164,11 @@ export class BigCommerceOAuthClient {
         channelId?: number
     ): string {
         const now = Math.floor(Date.now() / 1000);
-        const payload: StoreAdminJwt = {
+        const payload: StoreAdminJwtPayload = {
             aud: this.options.clientId,
             iss: "bc",
             iat: now,
             nbf: now,
-            exp: now + 60 * 60 * 24,
             jti: uuidv4(),
             sub: accessToken.context.replace("stores/", ""),
             user: {

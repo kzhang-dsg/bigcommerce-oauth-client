@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 export interface AccessToken {
     access_token: string;
     scope: string;
@@ -9,14 +10,7 @@ export interface AccessToken {
     context: string;
     account_uuid: string;
 }
-export interface StoreAdminJwt {
-    aud: string;
-    iss: string;
-    iat: number;
-    nbf: number;
-    exp: number;
-    jti: string;
-    sub: string;
+export interface StoreAdminJwtPayload extends JwtPayload {
     user: {
         id: number;
         email: string;
@@ -29,18 +23,13 @@ export interface StoreAdminJwt {
     url: string;
     channel_id?: number | null;
 }
-export interface CustomerJwt {
+export interface CustomerJwtPayload extends JwtPayload {
     customer: {
         id: number;
         email: string;
         group_id: string;
     };
-    iss: string;
-    sub: string;
-    iat: number;
-    exp: number;
     version: number;
-    aud: string;
     application_id: string;
     store_hash: string;
     operation: string;
