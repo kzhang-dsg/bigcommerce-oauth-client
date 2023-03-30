@@ -25,7 +25,7 @@ export class BigCommerceOAuthClient {
     readonly axiosInstance: AxiosInstance;
 
     constructor(private readonly options: Options) {
-        this.options = Object.assign(DEFAULT_OPTIONS, this.options);
+        this.options = Object.assign({}, DEFAULT_OPTIONS, this.options);
         this.axiosInstance = Axios.create({
             baseURL: this.options.baseURL,
             timeout: this.options.timeout,
